@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GH { 
+    
     public class Event
     {
-
     }
-    public class EventSystem : MonoBehaviour {
+    
+public class EventSystem : MonoBehaviour {
+    
         public static EventSystem _instance = null;
 
         public static EventSystem instance //Ensures that this is the only instance in the class
@@ -27,13 +29,16 @@ namespace GH {
         void ShowUI(DialogueUIOption option)
             public delegate void EventDelegate(DialogueUIOption e);
         */
+        
         /*
          * <T> allows use to be any type of datatype. The where T : Event makes it so that it has to be dereived from Event class
          */
         public delegate void EventDelegate<T>(T e) where T : Event; // Declaring the delegate of a genric type. T can be replaced with any parameter
+        
         private delegate void EventDelegate(Event e); //The delegeate for all the events
 
         private Dictionary<System.Type, EventDelegate> eventDelegates = new Dictionary<System.Type, EventDelegate>();//Creates Dictionary for all the Delegates of different Event types
+        
         private Dictionary<System.Delegate, EventDelegate> delegateLookup = new Dictionary<System.Delegate, EventDelegate>();//Creates a dictionary for all the events 
 
         public void AddListener<T>(EventDelegate<T> del) where T : Event
@@ -93,4 +98,4 @@ namespace GH {
                 del.Invoke(eventArguements); //Calls all the events
             }
         }
-    }
+ }
