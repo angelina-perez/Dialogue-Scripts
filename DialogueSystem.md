@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public struct DialogueUIOption
+public class DialogueUIOption: GH.Event
 {
+
 	public DialogueOption line;
 	public UnityAction[] onclickEvent;
-
 	int[] numbers;
+  
 }
 
 
 public class DialogueSystem : MonoBehaviour {
 
 	public DialogueDatabase database;
-
+  
 	AudioSource source;
 	Dictionary<string, DialogueOption> dialogueTable = new Dictionary<string, DialogueOption> ();
 
@@ -69,6 +70,7 @@ public class DialogueSystem : MonoBehaviour {
 
 	public void StartLine (string dialogueLineName)
 	{
+  
 		DialogueOption option = null;
 		dialogueTable.TryGetValue (dialogueLineName, out option);
 
@@ -77,10 +79,12 @@ public class DialogueSystem : MonoBehaviour {
 	}
 	public void NextLine(int lineIndex)
 	{
+  
 		Debug.Log (string.Format ("Next Line Called: {0}", lineIndex));
 		if(lineIndex < m_currentLine.responses.Length)
 		{
 		StartLine (m_currentLine.responses [lineIndex]);
 		}
+    
 	}
 }
