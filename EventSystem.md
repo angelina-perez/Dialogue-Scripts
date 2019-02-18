@@ -12,8 +12,9 @@ namespace GH {
 public class EventSystem : MonoBehaviour {
     
         public static EventSystem _instance = null;
-
-        public static EventSystem instance //Ensures that this is the only instance in the class
+        
+        //Ensures that this is the only instance in the class
+        public static EventSystem instance 
         {
             get
             {
@@ -31,7 +32,8 @@ public class EventSystem : MonoBehaviour {
         */
         
         /*
-         * <T> allows use to be any type of datatype. The where T : Event makes it so that it has to be dereived from Event class
+         * <T> allows use to be any type of datatype. 
+         *The where T : Event makes it so that it has to be dereived from Event class
          */
         public delegate void EventDelegate<T>(T e) where T : Event; // Declaring the delegate of a genric type. T can be replaced with any parameter
         
