@@ -1,4 +1,3 @@
-# Dialogue-Scripts
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,32 +5,32 @@ using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour {
 
-	public GameObject buttonPrefab;
+    public GameObject buttonPrefab;
 
-	private void OnEnable()
-	{
-		GameEvents.onStartDialogue += ShowUI;
+    private void OnEnable()
+    {
+        GH.EventSystem.instance.AddListener<DialogueUIOption>(ShowUI);
+    }
 
-	}
-		
-	private void OnDisable()
-	{
-		GameEvents.onStartDialogue -= ShowUI;
-	}
+    private void OnDisable()
+    {
+        GH.EventSystem.instance.RemoveListener<DialogueUIOption>(ShowUI);
+    }
 
-	public void ShowUI(DialogueUIOption option)
-	{
-		int index = 0;
-		foreach (DialogueOption choice in option.line.responses) 
-		{
-			GameObject button = GameObject.Instantiate (buttonPrefab, gameObject.transform);
+    //SHOWS DIALOGUE OPTION
+    void ShowUI(DialogueUIOption option)
+    {
+        int index = 0;
+        foreach(DialogueOption choice in option.line.repsonses)
+        {
+            GameObject button = GameObject.Instantiate(buttonPrefab, gameObject.transform);
 
-			Button uiButton = button.GetComponent<Button> ();
-			TMPro.TextMeshProUGUI uiText = button.GetComponentInChildren<TMPro.TextMeshProUGUI> ();
-			uiText.SetText (choice.line);
+            Button uiButton = button.GetComponent<Button>();
+            TMPro.TextMeshProUGUI uiText = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            uiText.SetText(choice.line);
 
-			uiButton.onClick.AddListener(option.onclickEvent[index]);
-			index++;
-		}
-	}
+            uiButton.onClick.AddListener(option.onClickEvent[index]);
+            index++;
+        }
+    }
 }
